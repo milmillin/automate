@@ -6,6 +6,7 @@
 
 namespace pspy {
 
+
 Part::Part(const std::string& path, PartOptions options)
 {
 	auto bodies = read_file(path);
@@ -16,6 +17,18 @@ Part::Part(const std::string& path, PartOptions options)
 	_is_valid = true;
 	auto& body = bodies[0];
 	
+	Initialize(body, options);
+}
+
+Part::Part(std::shared_ptr<Body> body, PartOptions options)
+{
+	Initialize(body, options);
+}
+
+	
+void Part::Initialize(std::shared_ptr<Body>& body, PartOptions options)
+{
+	_is_valid = true;
 	auto bounding_box = body->GetBoundingBox();
 
 	if (options.just_bb) {
@@ -630,6 +643,27 @@ MCF::MCF(const PartInference& origin_inf, const PartInference& axis_inf, bool on
 	}
 	ref.origin_ref = origin_inf.reference;
 	ref.axis_ref = axis_inf.reference;
+}
+
+Boolean::Boolean(const std::string& a, const std::string& b, BooleanOperation operation) {
+
+	auto bodies_a = read_xt(a);
+	auto bodies_b = read_xt(b);
+
+	if (bodies_a.size() != 1 || bodies_b.size() != 1) {
+		_is_valid = false;
+		return;
+	}
+	_is_valid = true;
+
+	std::shared_ptr<PSBody> body_a = std::dynamic_pointer_cast<PSBody>(bodies_a[0]);
+	std::shared_ptr<PSBody> body_b = std::dynamic_pointer_cast<PSBody>(bodies_b[0]);
+
+	auto bodies_res = body_a->Boolean(body_b, operation);
+
+	for (const auto& body : bodies_res) {
+		parts.push_back(std::make_shared<Part>(body));
+	}
 }
 
 }

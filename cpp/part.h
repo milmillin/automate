@@ -215,6 +215,8 @@ struct MCF {
 
 struct Part {
 	Part(const std::string& path, PartOptions options = PartOptions());
+	Part(std::shared_ptr<Body> body, PartOptions options = PartOptions());
+	void Initialize(std::shared_ptr<Body>& body, PartOptions options);
 	void init_default_mcfs(
 		bool onshape_style, // only use onshape specific MCFs
 		bool just_face_axes // limit to MCFs with face-based axes
@@ -228,6 +230,13 @@ struct Part {
 	PartSummary summary;
 	PartUniqueInferences inferences;
 	std::vector<MCF> default_mcfs;
+	bool _is_valid;
+};
+
+struct Boolean {
+	Boolean(const std::string& a, const std::string& b, BooleanOperation operation);
+
+	std::vector<std::shared_ptr<Part>> parts;
 	bool _is_valid;
 };
 

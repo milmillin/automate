@@ -330,6 +330,11 @@ PYBIND11_MODULE(automate_cpp, m) {
 		.def_readonly("axis", &MCF::axis)
 		.def_readonly("ref", &MCF::ref);
 
+		py::class_<Boolean>(m, "Boolean")
+			.def(py::init<const std::string&, const std::string&, BooleanOperation>())
+			.def_readonly("parts", &Boolean::parts)
+			.def_readonly("is_valid", &Boolean::_is_valid);
+
 	// eclass.h
 	m.def("find_equivalence_classes", &find_equivalence_classes);
 
@@ -432,6 +437,11 @@ PYBIND11_MODULE(automate_cpp, m) {
 		.value("BOTTOM_AXIS_POINT", InferenceType::BOTTOM_AXIS_POINT)
 		.value("MID_AXIS_POINT", InferenceType::MID_AXIS_POINT)
 		.value("LOOP_CENTER", InferenceType::LOOP_CENTER);
+	
+	py::enum_<BooleanOperation>(m, "BooleanOperation")
+		.value("INTERSECT", BooleanOperation::INTERSECT)
+		.value("SUBTRACT", BooleanOperation::SUBTRACT)
+		.value("UNITE", BooleanOperation::UNITE);
 
 	py::class_<MassProperties>(m, "MassProperties")
 		.def_readonly("amount", &MassProperties::amount)
