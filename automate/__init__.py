@@ -9,7 +9,7 @@ from .sbgcn import SBGCN, LinearBlock, BipartiteResMRConv
 from .util import run_model, ArgparseInitialized
 from .eclasses import find_eclasses
 
-from automate_cpp import Part, PartOptions
+from automate_cpp import Part, PartOptions, Boolean, BooleanOperation
 
 
 __all__ = [
@@ -27,5 +27,7 @@ __all__ = [
     'BipartiteResMRConv',
     'Part',
     'PartOptions',
-    'find_eclasses'
+    'find_eclasses',
+    'Boolean',
+    'BooleanOperation'
     ]
