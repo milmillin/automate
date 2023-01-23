@@ -662,7 +662,7 @@ Boolean::Boolean(const std::string& a, const std::string& b, BooleanOperation op
 	auto bodies_res = body_a->Boolean(body_b, operation);
 
 	for (const auto& body : bodies_res) {
-		parts.push_back(std::make_shared<Part>(body));
+		parts.emplace_back(body);
 	}
 }
 
