@@ -645,7 +645,7 @@ MCF::MCF(const PartInference& origin_inf, const PartInference& axis_inf, bool on
 	ref.axis_ref = axis_inf.reference;
 }
 
-Boolean::Boolean(const std::string& a, const std::string& b, BooleanOperation operation) {
+Boolean::Boolean(const std::string& a, const std::string& b, BooleanOperation operation, PartOptions options) {
 
 	auto bodies_a = read_xt(a);
 	auto bodies_b = read_xt(b);
@@ -662,7 +662,7 @@ Boolean::Boolean(const std::string& a, const std::string& b, BooleanOperation op
 	auto bodies_res = body_a->Boolean(body_b, operation);
 
 	for (const auto& body : bodies_res) {
-		parts.emplace_back(body);
+		parts.emplace_back(body, options);
 	}
 }
 

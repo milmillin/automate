@@ -234,7 +234,7 @@ struct Part {
 };
 
 struct Boolean {
-	Boolean(const std::string& a, const std::string& b, BooleanOperation operation);
+	Boolean(const std::string& a, const std::string& b, BooleanOperation operation, PartOptions options = PartOptions());
 
 	std::vector<Part> parts;
 	bool _is_valid;

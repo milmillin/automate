@@ -332,6 +332,7 @@ PYBIND11_MODULE(automate_cpp, m) {
 
 		py::class_<Boolean>(m, "Boolean")
 			.def(py::init<const std::string&, const std::string&, BooleanOperation>())
+			.def(py::init<const std::string&, const std::string&, BooleanOperation, PartOptions>())
 			.def_readonly("parts", &Boolean::parts)
 			.def_readonly("is_valid", &Boolean::_is_valid);
 
